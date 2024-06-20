@@ -1,0 +1,7 @@
+np/roshanadh/inventoryservice/service/InventoryService.class
+np/roshanadh/inventoryservice/controller/InventoryController.class
+np/roshanadh/inventoryservice/repository/InventoryRepository.class
+np/roshanadh/inventoryservice/dto/InventoryResponse.class
+np/roshanadh/inventoryservice/InventoryServiceApplication.class
+np/roshanadh/inventoryservice/dto/InventoryResponse$InventoryResponseBuilder.class
+np/roshanadh/inventoryservice/model/Inventory.class

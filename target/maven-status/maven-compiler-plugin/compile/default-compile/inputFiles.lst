@@ -1,0 +1,6 @@
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/dto/InventoryResponse.java
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/repository/InventoryRepository.java
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/InventoryServiceApplication.java
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/controller/InventoryController.java
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/service/InventoryService.java
+/home/logicfocus/sam/springboot-microservices/inventory-service/src/main/java/np/roshanadh/inventoryservice/model/Inventory.java
