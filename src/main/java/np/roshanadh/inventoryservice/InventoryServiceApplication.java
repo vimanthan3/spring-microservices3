@@ -1,40 +1,45 @@
 package np.roshanadh.inventoryservice;
 
-import lombok.extern.slf4j.Slf4j;
-import np.roshanadh.inventoryservice.model.Inventory;
-import np.roshanadh.inventoryservice.repository.InventoryRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication
-@Slf4j
-@EnableEurekaClient
+import javax.sql.DataSource;
+
+@TestConfiguration
+@EnableAutoConfiguration
+@ComponentScan(basePackages = "np.roshanadh.inventoryservice")
 @EnableJpaRepositories(basePackages = "np.roshanadh.inventoryservice.repository")
-public class InventoryServiceApplication {
+@EntityScan(basePackages = "np.roshanadh.inventoryservice.model")
+@EnableTransactionManagement
+public class TestConfig {
 
-    public static void main(String[] args) {
-        SpringApplication.run(InventoryServiceApplication.class, args);
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2) // Use H2 in-memory database
+                .build();
     }
 
     @Bean
-    public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
-        return args -> {
-            Inventory inventory = new Inventory();
-            inventory.setSkuCode("iphone_13");
-            inventory.setQuantity(100);
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("np.roshanadh.inventoryservice.model");
+        return em;
+    }
 
-            Inventory inventory1 = new Inventory();
-            inventory1.setSkuCode("iphone_13_red");
-            inventory1.setQuantity(0);
-
-            inventoryRepository.save(inventory);
-            inventoryRepository.save(inventory1);
-
-            log.info("Added to inventory {} and {}", inventory, inventory1);
-        };
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager(entityManagerFactory().getObject());
     }
 }
