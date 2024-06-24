@@ -62,5 +62,60 @@
             <version>3.1.11</version>
         </dependency>
     </dependencies>
+         <build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.3.1</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <excludes>
+                    <exclude>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclude>
+                </excludes>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.cyclonedx</groupId>
+            <artifactId>cyclonedx-maven-plugin</artifactId>
+            <version>1.8.1</version>
+            <executions>
+                <execution>
+                    <id>make-bom</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>makeBom</goal>
+                    </goals>
+                    <configuration>
+                        <schemaVersion>1.5</schemaVersion>
+                        <outputName>bom</outputName>
+                        <outputFormat>xml</outputFormat>
+                        <includeBomSerialNumber>false</includeBomSerialNumber>
+                        <includeLicenseText>false</includeLicenseText>
+                        <componentVersion>2.0.0</componentVersion>
+                        <destination>target</destination>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>4.8.0.2856</version>
+        </plugin>
+    </plugins>
+</build>
+
 </project>
 
