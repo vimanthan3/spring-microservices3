@@ -15,6 +15,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
         <sonar.java.binaries>${project.build.directory}/classes</sonar.java.binaries>
     </properties>
 
@@ -107,10 +108,6 @@
         </execution>
     </executions>
    </plugin>
-
-
-        
-
         <plugin>
             <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
