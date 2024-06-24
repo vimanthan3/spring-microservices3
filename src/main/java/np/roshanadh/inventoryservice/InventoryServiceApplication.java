@@ -8,32 +8,33 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @Slf4j
 @EnableEurekaClient
+@EnableJpaRepositories(basePackages = "np.roshanadh.inventoryservice.repository")
 public class InventoryServiceApplication {
 
-	@Bean
-	public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
-		return args -> {
-			Inventory inventory = new Inventory();
-			inventory.setSkuCode("iphone_13");
-			inventory.setQuantity(100);
+    public static void main(String[] args) {
+        SpringApplication.run(InventoryServiceApplication.class, args);
+    }
 
-			Inventory inventory1 = new Inventory();
-			inventory1.setSkuCode("iphone_13_red");
-			inventory1.setQuantity(0);
+    @Bean
+    public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
+        return args -> {
+            Inventory inventory = new Inventory();
+            inventory.setSkuCode("iphone_13");
+            inventory.setQuantity(100);
 
-			inventoryRepository.save(inventory);
-			inventoryRepository.save(inventory1);
+            Inventory inventory1 = new Inventory();
+            inventory1.setSkuCode("iphone_13_red");
+            inventory1.setQuantity(0);
 
-			log.info("Added to inventory {} and {}", inventory, inventory1);
-		};
-	}
+            inventoryRepository.save(inventory);
+            inventoryRepository.save(inventory1);
 
-	public static void main(String[] args) {
-		SpringApplication.run(InventoryServiceApplication.class, args);
-	}
-
+            log.info("Added to inventory {} and {}", inventory, inventory1);
+        };
+    }
 }
